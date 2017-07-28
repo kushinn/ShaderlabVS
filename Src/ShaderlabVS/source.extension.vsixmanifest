@@ -4,9 +4,9 @@
     <Identity Id="ShaderlabVS..c702cfb7-573c-45f4-9469-115fcb519ad2" Version="0.9" Language="zh-CN" Publisher="Rafe.chen" />
     <DisplayName>ShaderlabVS</DisplayName>
     <Description xml:space="preserve">ShaderlabVS is a Visual Studio plugin for Unity3D shader programming.</Description>
-    <MoreInfo>https://github.com/kushinn</MoreInfo>
+    <MoreInfo>https://github.com/kushinn/ShaderlabVS</MoreInfo>
     <License>License.txt</License>
-    <GettingStartedGuide>https://github.com/kushinn</GettingStartedGuide>
+    <GettingStartedGuide>https://github.com/kushinn/ShaderlabVS/blob/master/README_CN.md</GettingStartedGuide>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0, 12.0]" />

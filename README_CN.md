@@ -1,7 +1,7 @@
 ShaderlabVS
 ===========
 
-ShaderlabVS 用于 Unity Shaderlab 编程的 Visual Studio 插件。最新的版本可以从 [这里](http://blog.shuiguzi.com/2014/10/28/Release/) 或者 Release 页面下载。
+ShaderlabVS 用于 Unity Shaderlab 编程的 Visual Studio 插件。最新的版本可以从 Release 页面下载。
 
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/wudixiaop/ShaderlabVS/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.8&x2=0)](http://blog.shuiguzi.com/2014/10/28/Release/)
 
@@ -65,10 +65,5 @@ __其他版本暂时没有测试，欢迎 Pull Request 添加测试结果.__
 ### 感谢
 
 晨曦
-
-### 请我喝杯咖啡
-
-如果您喜欢这个插件，想买杯咖啡犒劳我一下。 可以通过 [Paypal](http://paypal.me/rockylai) or 或者下方支付宝二维码。
-
-<img src='http://blog.shuiguzi.com/images/pay/alipay.png' width='360' height='360'/>
+Rocky Lai
 
