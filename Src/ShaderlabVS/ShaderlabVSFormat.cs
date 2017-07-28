@@ -22,6 +22,7 @@ namespace ShaderlabVS
         public ShaderlabTextFormat()
         {
             this.DisplayName = Constants.ShaderlabText;
+            this.ForegroundColor = Colors.Orange;
         }
     }
 
@@ -58,7 +59,7 @@ namespace ShaderlabVS
         public ShaderlabFunctionFormat()
         {
             this.DisplayName = Constants.ShaderlabFunction;
-            this.ForegroundColor = Colors.DarkMagenta;
+            this.ForegroundColor = Color.FromScRgb(1.0f, 1.0f, 0.5f, 0.0f);
         }
     }
 
@@ -157,6 +158,19 @@ namespace ShaderlabVS
         {
             this.DisplayName = Constants.ShaderlabBracesMarker;
             this.BackgroundColor = Colors.Gray;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [Name(Constants.ShaderlabMacro)]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class MacroDefination : MarkerFormatDefinition
+    {
+        public MacroDefination()
+        {
+            this.DisplayName = Constants.ShaderlabMacro;
+            this.ForegroundColor = Color.FromScRgb(1, 1, 0.5f, 1);
         }
     }
 

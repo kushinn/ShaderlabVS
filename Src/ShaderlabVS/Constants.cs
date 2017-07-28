@@ -12,6 +12,7 @@ namespace ShaderlabVS
         public const string ShaderlabUnityKeywordsPara = "Shaderlab-UnityKeywordsPara";
         public const string ShaderlabFunction = "Shaderlab-Fucntion";
         public const string ShaderlabComment = "Shaderlab-Comment";
+        public const string ShaderlabMacro = "Shaderlab-Macro";
         public const string ShaderlabDataType = "Shaderlab-DataType";
         public const string ShaderlabBracesMarker = "Shaderlab-BraceMarker";
         public const string ShaderlabShortcuts = "Shaderlab-Shorts";

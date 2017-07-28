@@ -74,16 +74,21 @@ namespace ShaderlabVS
             Scanner.LoadTableDataFromLex();
         }
 
-        Dictionary<ShaderlabToken, IClassificationType> classTypeDict;
+        private static readonly Dictionary<ShaderlabToken, IClassificationType> classTypeDict = new Dictionary<ShaderlabToken, IClassificationType>();
         Scanner scanner;
         ITextBuffer textBuffer;
+
+        private static void LoadCGIncludes()
+        {
+
+        }
 
         public ShaderlabClassifier(ITextBuffer buffer, IClassificationTypeRegistryService registerService)
         {
             textBuffer = buffer;
             scanner = new Scanner();
+            classTypeDict.Clear();
 
-            classTypeDict = new Dictionary<ShaderlabToken, IClassificationType>();
             classTypeDict.Add(ShaderlabToken.TEXT, registerService.GetClassificationType(Constants.ShaderlabText));
             classTypeDict.Add(ShaderlabToken.COMMENT, registerService.GetClassificationType(Constants.ShaderlabComment));
             classTypeDict.Add(ShaderlabToken.HLSLCGDATATYPE, registerService.GetClassificationType(Constants.ShaderlabDataType));
@@ -96,13 +101,13 @@ namespace ShaderlabVS
             classTypeDict.Add(ShaderlabToken.UNITYFUNCTION, registerService.GetClassificationType(Constants.ShaderlabFunction));
             classTypeDict.Add(ShaderlabToken.STRING_LITERAL, registerService.GetClassificationType(Constants.ShaderlabStrings));
             classTypeDict.Add(ShaderlabToken.UNITYVALUES, registerService.GetClassificationType(Constants.ShaderlabUnityKeywords));
+            classTypeDict.Add(ShaderlabToken.UNITYMACROS, registerService.GetClassificationType(Constants.ShaderlabMacro));
             classTypeDict.Add(ShaderlabToken.UNDEFINED, registerService.GetClassificationType(Constants.ShaderlabText));
         }
 
         public IEnumerable<ITagSpan<ClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
-            ShaderlabCompletionSource.ClearWordsInDocuments();
-            ShaderlabCompletionSource.SetWordsInDocuments(spans[0].Snapshot.GetText());
+            ShaderlabCompletionSource.SetWordsInEditDocuments(spans[0].Snapshot.GetText());
             
             string text = " " + spans[0].Snapshot.GetText().ToLower();
             scanner.SetSource(text, 0);

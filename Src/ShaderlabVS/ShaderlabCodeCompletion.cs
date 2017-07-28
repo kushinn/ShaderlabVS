@@ -24,7 +24,8 @@ namespace ShaderlabVS
     #region Shaderlab Completion Source
     public class ShaderlabCompletionSource : ICompletionSource
     {
-        private static HashSet<string> WordsInDocuments = new HashSet<string>();
+        private static readonly HashSet<string> WordsInDocuments = new HashSet<string>();
+        private static readonly HashSet<string> WordsInContextDocuments = new HashSet<string>();
         private ShaderlabCompletionSourceProvider sourceProvider;
         private ITextBuffer textBuffer;
         private ITextDocument textDocument;
@@ -41,6 +42,11 @@ namespace ShaderlabVS
             keywordsImage = GetImageFromAssetByName("Keywords.png");
             valuesImage = GetImageFromAssetByName("Values.png");
 
+            var includes = ShaderlabDataManager.Instance.LoadCGIncludesContents();
+            foreach (var text in includes)
+            {
+                SetWordsInDocuments(text, WordsInContextDocuments);
+            }
         }
 
 
@@ -51,7 +57,13 @@ namespace ShaderlabVS
             this.textDocument = document;
         }
 
-        public static void SetWordsInDocuments(string text)
+        public static void SetWordsInEditDocuments(string text)
+        {
+            ClearWordsInDocuments();
+            SetWordsInDocuments(text, WordsInDocuments);
+        }
+
+        public static void SetWordsInDocuments(string text, HashSet<string> wordsSet)
         {
             StringReader reader = new StringReader(text);
 
@@ -72,7 +84,7 @@ namespace ShaderlabVS
 
                 foreach (var word in words)
                 {
-                    WordsInDocuments.Add(word);
+                    wordsSet.Add(word);
                 }
 
                 line = reader.ReadLine();
@@ -187,6 +199,14 @@ namespace ShaderlabVS
             // Add words in current file
             //
             foreach (var word in WordsInDocuments)
+            {
+                if (!keywords.Contains(word))
+                {
+                    completionList.Add(new Completion(word, word, string.Empty, valuesImage, null));
+                }
+            }
+
+            foreach (var word in WordsInContextDocuments)
             {
                 if (!keywords.Contains(word))
                 {

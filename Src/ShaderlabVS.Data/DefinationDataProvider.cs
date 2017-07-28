@@ -9,6 +9,8 @@ namespace ShaderlabVS.Data
     {
         public static List<T> ProvideFromFile(string defFileName)
         {
+            if (!System.IO.File.Exists(defFileName)) return new List<T>();
+
             DefinationReader dr = new DefinationReader(defFileName);
             dr.Read();
             List<T> list = new List<T>();

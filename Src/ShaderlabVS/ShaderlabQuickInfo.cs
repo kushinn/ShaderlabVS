@@ -15,7 +15,7 @@ namespace ShaderlabVS
     {
         private ShaderlabQuickInfoSourceProvider provider;
         private ITextBuffer textBuffer;
-        private Dictionary<string, string> quickInfos;
+        private readonly Dictionary<string, string> quickInfos;
 
         public ShaderlabQuickInfoSource(ShaderlabQuickInfoSourceProvider provider, ITextBuffer textBuffer)
         {

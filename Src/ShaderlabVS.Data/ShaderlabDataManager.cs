@@ -21,9 +21,11 @@ namespace ShaderlabVS.Data
         public const string UNITY3D_KEYWORD_DEFINATIONFILE = "Data\\Unity3D_keywords.def";
         public const string UNITY3D_MACROS_DEFINATIONFILE = "Data\\Unity3D_macros.def";
         public const string UNITY3D_VALUES_DEFINATIONFILE = "Data\\Unity3D_values.def";
+        public const string UNITY3D_CGINCLUDES_DEFINATIONFILE = "Data\\CGIncludes.def";
         #endregion
 
         #region Properties
+        public string CurrentAssemblyDir { get; private set; }
 
         public List<HLSLCGFunction> HLSLCGFunctions { get; private set; }
         public List<string> HLSLCGBlockKeywords { get; private set; }
@@ -37,6 +39,7 @@ namespace ShaderlabVS.Data
         public List<UnityBuiltinMacros> UnityBuiltinMacros { get; private set; }
         public List<UnityKeywords> UnityKeywords { get; private set; }
         public List<UnityBuiltinValue> UnityBuiltinValues { get; private set; }
+        public List<UnityFileEntry> UnityCGIncludes { get; private set; }
 
         #endregion
 
@@ -70,6 +73,8 @@ namespace ShaderlabVS.Data
         private ShaderlabDataManager()
         {
             string currentAssemblyDir = (new FileInfo(Assembly.GetExecutingAssembly().CodeBase.Substring(8))).DirectoryName;
+            CurrentAssemblyDir = currentAssemblyDir;
+
             HLSLCGFunctions = DefinationDataProvider<HLSLCGFunction>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.HLSL_CG_FUNCTION_DEFINATIONFILE));
 
             List<HLSLCGKeywords> hlslcgKeywords = DefinationDataProvider<HLSLCGKeywords>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.HLSL_CG_KEYWORD_DEFINATIONFILE));
@@ -88,7 +93,32 @@ namespace ShaderlabVS.Data
             UnityBuiltinMacros = DefinationDataProvider<UnityBuiltinMacros>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_MACROS_DEFINATIONFILE));
             UnityBuiltinValues = DefinationDataProvider<UnityBuiltinValue>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_VALUES_DEFINATIONFILE));
             UnityKeywords = DefinationDataProvider<UnityKeywords>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_KEYWORD_DEFINATIONFILE));
+            UnityCGIncludes = DefinationDataProvider<UnityFileEntry>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_CGINCLUDES_DEFINATIONFILE));
+        }
 
+        public List<string> LoadCGIncludesContents()
+        {
+            HashSet<string> searchedFiles = new HashSet<string>();
+            List<string> contents = new List<string>();
+            foreach (var entry in UnityCGIncludes)
+            {
+                if (!Directory.Exists(entry.Description)) continue;
+                try
+                {
+                    string[] files = Directory.GetFiles(entry.Description, entry.Format, SearchOption.TopDirectoryOnly);
+                    foreach (var f in files)
+                    {
+                        if (searchedFiles.Add(f))
+                        {
+                            contents.Add(File.ReadAllText(f));
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+            return contents;
         }
 
         private List<string> GetHLSLCGKeywordsByType(List<HLSLCGKeywords> alltypes, string type)

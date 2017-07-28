@@ -1,0 +1,15 @@
+﻿#
+# A defination for the CGIncludes in Unity3D
+#
+# Use the format:
+#	{%
+#		%$ Name = {} $%
+#		%$ Description = {} $%
+#	%}
+#
+
+{%
+	%$ Name = { CGIncludes } $%
+	%$ Description = { D:\Program Files\Unity\Unity2017\Editor\Data\CGIncludes } $%
+	%$ Format = { *.* } $%
+%}

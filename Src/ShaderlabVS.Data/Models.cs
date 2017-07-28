@@ -175,5 +175,23 @@ namespace ShaderlabVS.Data
         }
     }
 
+    public class UnityFileEntry : ModelBase
+    {
+        [DefinationKey("Name")]
+        public string Name { get; set; }
+
+        [DefinationKey("Description")]
+        public string Description { get; set; }
+
+        [DefinationKey("Format")]
+        public string Format { get; set; }
+
+        public UnityFileEntry()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            Format = string.Empty;
+        }
+    }
     #endregion
 }

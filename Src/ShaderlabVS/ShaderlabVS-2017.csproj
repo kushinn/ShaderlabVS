@@ -143,6 +143,9 @@
     <None Include="TestFiles\Lighting.cginc" />
     <None Include="TestFiles\UnityCG.cginc" />
     <None Include="TestFiles\UnityCG.glslinc" />
+    <Content Include="Data\CGIncludes.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ShaderlabVS.LexTools.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
