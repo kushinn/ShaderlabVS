@@ -16,6 +16,12 @@ ShaderlabVS 用于 Unity Shaderlab 编程的 Visual Studio 插件。最新的版
 
 Features
 -----
+### 自定义配置文件
+可在插件安装目录下Data目录找到[CGIncludes.def]、
+[HLSL_CG_datatype.def]、[HLSL_CG_functions.def]、[HLSL_CG_Keywords.def]、
+[Unity3D_datatype.def]、[Unity3D_functions.def]、[Unity3D_keywords.def]、[Unity3D_macros.def]、[Unity3D_values.def]
+等等配置项, 在[CGIncludes.def]中添加/修改预制定义的项，可以使得VS能够自动完成更多的Words。
+但是切记，不要增加太多不常用的Unity版本的目录，否则可能会导致第一次打开文件变慢。
 
 ### 代码高亮和大纲
 
