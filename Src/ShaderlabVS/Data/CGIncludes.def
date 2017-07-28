@@ -11,6 +11,6 @@
 
 {%
 	%$ Name = { Unity_2017_CGIncludes } $%
-	%$ Description = { D:\Program Files\Unity\Unity2017\Editor\Data\CGIncludes } $%
+	%$ Description = { I:\Program Files\Unity\Unity2017\Editor\Data\CGIncludes } $%
 	%$ Format = { *.* } $%
 %}
