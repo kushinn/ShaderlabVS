@@ -221,7 +221,7 @@ namespace ShaderlabVS
                         if (length > 0 && pos > lastPos && endIndex < text.Length - 1)
                         {
                             tk = text.Substring(pos, length);
-                            if (IsFunction(text, pos))
+                            if (IsFunction(text, pos + length))
                             {
                                 ShaderlabDataManager.Instance.UserFunctions.Add(new UnityBuiltinFunction() { Name = tk });
                                 return classTypeDict.TryGetValue(ShaderlabToken.USERFUNCTION, out special);
