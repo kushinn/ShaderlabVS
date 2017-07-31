@@ -89,7 +89,8 @@ namespace ShaderlabVS.Data
             {
                 HLSLCGDatatypes = dts.DataTypes;
             }
-
+            UserDatatypes = new List<UnityBuiltinDatatype>();
+            UserFunctions = new List<UnityBuiltinFunction>();
             UnityBuiltinDatatypes = DefinationDataProvider<UnityBuiltinDatatype>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_DATATYPE_DEFINATIONFILE));
             UnityBuiltinFunctions = DefinationDataProvider<UnityBuiltinFunction>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_FUNCTION_DEFINATIONFILE));
             UnityBuiltinMacros = DefinationDataProvider<UnityBuiltinMacros>.ProvideFromFile(Path.Combine(currentAssemblyDir, ShaderlabDataManager.UNITY3D_MACROS_DEFINATIONFILE));
