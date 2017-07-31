@@ -41,6 +41,8 @@ namespace ShaderlabVS.Data
         public List<UnityBuiltinValue> UnityBuiltinValues { get; private set; }
         public List<UnityFileEntry> UnityCGIncludes { get; private set; }
 
+        public List<UnityBuiltinDatatype> UserDatatypes { get; private set; }
+        public List<UnityBuiltinFunction> UserFunctions { get; private set; }
         #endregion
 
         #region Singleton

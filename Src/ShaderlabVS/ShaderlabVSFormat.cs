@@ -174,5 +174,40 @@ namespace ShaderlabVS
         }
     }
 
+
+    /// <summary>
+    /// User Data type
+    /// </summary>
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = Constants.ShaderlabUserDataType)]
+    [Name(Constants.ShaderlabUserDataType)]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class ShaderlabUserDataType : ClassificationFormatDefinition
+    {
+        public ShaderlabUserDataType()
+        {
+            this.DisplayName = Constants.ShaderlabUserDataType;
+            this.ForegroundColor = Colors.CadetBlue;
+        }
+    }
+
+    /// <summary>
+    /// User Function
+    /// </summary>
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = Constants.ShaderlabUserFunction)]
+    [Name(Constants.ShaderlabUserFunction)]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class ShaderlabUserFunction : ClassificationFormatDefinition
+    {
+        public ShaderlabUserFunction()
+        {
+            this.DisplayName = Constants.ShaderlabUserFunction;
+            this.ForegroundColor = Colors.BlueViolet;
+        }
+    }
+
     #endregion //Format definition
 }

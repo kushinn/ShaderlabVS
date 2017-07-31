@@ -42,5 +42,13 @@ namespace ShaderlabVS
         [Name(Constants.ShaderlabMacro)]
         internal static ClassificationTypeDefinition ShaderlabMacroType = null;
 
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(Constants.ShaderlabUserDataType)]
+        internal static ClassificationTypeDefinition ShaderlabUserDataTypeType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(Constants.ShaderlabUserFunction)]
+        internal static ClassificationTypeDefinition ShaderlabUserFunctionType = null;
+
     }
 }

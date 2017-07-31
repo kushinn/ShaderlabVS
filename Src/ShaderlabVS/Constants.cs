@@ -16,6 +16,8 @@ namespace ShaderlabVS
         public const string ShaderlabDataType = "Shaderlab-DataType";
         public const string ShaderlabBracesMarker = "Shaderlab-BraceMarker";
         public const string ShaderlabShortcuts = "Shaderlab-Shorts";
+        public const string ShaderlabUserDataType = "Shaderlab-UserDataType";
+        public const string ShaderlabUserFunction = "Shaderlab-UserFucntion";
 
         public const string ShaderFileNameExt = ".shader";
         public const string ComputeShaderFileNameExt = ".compute";

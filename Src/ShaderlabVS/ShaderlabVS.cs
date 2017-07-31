@@ -68,6 +68,7 @@ namespace ShaderlabVS
 
     internal sealed class ShaderlabClassifier : ITagger<ClassificationTag>
     {
+        private static readonly char[] sStrcutSeparators = new char[] { '{', ' ', '\n', '\r' };
 
         static ShaderlabClassifier()
         {
@@ -77,11 +78,7 @@ namespace ShaderlabVS
         private static readonly Dictionary<ShaderlabToken, IClassificationType> classTypeDict = new Dictionary<ShaderlabToken, IClassificationType>();
         Scanner scanner;
         ITextBuffer textBuffer;
-
-        private static void LoadCGIncludes()
-        {
-
-        }
+        
 
         public ShaderlabClassifier(ITextBuffer buffer, IClassificationTypeRegistryService registerService)
         {
@@ -102,7 +99,88 @@ namespace ShaderlabVS
             classTypeDict.Add(ShaderlabToken.STRING_LITERAL, registerService.GetClassificationType(Constants.ShaderlabStrings));
             classTypeDict.Add(ShaderlabToken.UNITYVALUES, registerService.GetClassificationType(Constants.ShaderlabUnityKeywords));
             classTypeDict.Add(ShaderlabToken.UNITYMACROS, registerService.GetClassificationType(Constants.ShaderlabMacro));
+            classTypeDict.Add(ShaderlabToken.USERDATATYPE, registerService.GetClassificationType(Constants.ShaderlabUserDataType));
+            classTypeDict.Add(ShaderlabToken.USERFUNCTION, registerService.GetClassificationType(Constants.ShaderlabUserFunction));
             classTypeDict.Add(ShaderlabToken.UNDEFINED, registerService.GetClassificationType(Constants.ShaderlabText));
+        }
+
+        private static bool IsTokenSeparator(char c)
+        {
+            return c == ' '
+               || c == '\n'
+               || c == '\r'
+               || c == ']'
+               || c == '['
+               || c == '{'
+               || c == '}'
+               || c == '+'
+               || c == '-'
+               || c == '*'
+               || c == '/'
+               || c == '%'
+               || c == '^'
+               || c == '&'
+               || c == '#'
+               || c == '('
+               || c == ')'
+               || c == '!'
+               || c == '~'
+               || c == '?'
+               || c == ':'
+               || c == ','
+               || c == ';'
+               || c == '='
+               || c == '|';
+        }
+
+        private static bool MoveToEndOfToken(string text, ref int pos)
+        {
+            while (pos < text.Length - 1 && IsTokenSeparator(text[pos +1]))
+            {
+                ++pos;
+            }
+
+            return pos < text.Length;
+        }
+
+        private static bool MoveToNextFrontOfToken(string text, ref int pos)
+        {
+            while ((pos < text.Length - 1) && !IsTokenSeparator(text[pos + 1]))
+            {
+                ++pos;
+            }
+
+            return pos < text.Length;
+        }
+
+        private bool TryCreateSpecialToken(ShaderlabToken token, ref int pos, ref int length, string text, out IClassificationType special)
+        {
+            special = null;
+            if (!MoveToNextFrontOfToken(text, ref pos)) return false;
+
+            int lastPos = pos + length;
+            if (token == ShaderlabToken.HLSLCGKEYWORD) // struct
+            {
+                string tk = text.Substring(pos, length);
+                length = 0;
+                pos = 0;
+
+                if (tk == "struct")
+                {
+                    pos = lastPos;
+                    if (!MoveToNextFrontOfToken(text, ref pos)) return false;
+
+                    int endIndex = pos;
+                    if (MoveToEndOfToken(text, ref endIndex))
+                    {
+                        length = endIndex - pos;
+                        if (length > 0 && pos > lastPos)
+                            return classTypeDict.TryGetValue(ShaderlabToken.USERDATATYPE, out special);
+                    }
+                }
+            }
+
+            return false;
         }
 
         public IEnumerable<ITagSpan<ClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
@@ -113,7 +191,7 @@ namespace ShaderlabVS
             scanner.SetSource(text, 0);
             int token;
             IClassificationType cf;
-                
+
             do
             {
                 token = scanner.NextToken();
@@ -165,6 +243,14 @@ namespace ShaderlabVS
                     yield return new TagSpan<ClassificationTag>(new SnapshotSpan(spans[0].Snapshot, new Span(pos, length)),
                                                                 new ClassificationTag(cf));
 
+                    int nexttfPos = pos;
+                    int nexttLength = length;
+                    IClassificationType nexttf;
+                    if(TryCreateSpecialToken((ShaderlabToken)token, ref nexttfPos, ref nexttLength, text, out nexttf))
+                    {
+                        yield return new TagSpan<ClassificationTag>(new SnapshotSpan(spans[0].Snapshot, new Span(nexttfPos, nexttLength)),
+                                               new ClassificationTag(nexttf));
+                    }
                 }
 
             } while (token > (int)Tokens.EOF);

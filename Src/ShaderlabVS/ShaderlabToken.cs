@@ -14,6 +14,8 @@
         UNITYVALUES,
         UNITYDATATYPE,
         UNITYFUNCTION,
+        USERDATATYPE,
+        USERFUNCTION,
         UNITYMACROS,
         UNDEFINED,
     }

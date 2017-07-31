@@ -193,5 +193,6 @@ namespace ShaderlabVS.Data
             Format = string.Empty;
         }
     }
+
     #endregion
 }
