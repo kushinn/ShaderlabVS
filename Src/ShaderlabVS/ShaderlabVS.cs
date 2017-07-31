@@ -135,7 +135,7 @@ namespace ShaderlabVS
 
         private static bool MoveToEndOfToken(string text, ref int pos)
         {
-            while (pos < text.Length - 1 && IsTokenSeparator(text[pos +1]))
+            while (pos < text.Length - 1 && !IsTokenSeparator(text[pos +1]))
             {
                 ++pos;
             }
@@ -145,7 +145,7 @@ namespace ShaderlabVS
 
         private static bool MoveToNextFrontOfToken(string text, ref int pos)
         {
-            while ((pos < text.Length - 1) && !IsTokenSeparator(text[pos + 1]))
+            while ((pos < text.Length) && IsTokenSeparator(text[pos]))
             {
                 ++pos;
             }
