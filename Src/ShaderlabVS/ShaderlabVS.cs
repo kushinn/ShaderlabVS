@@ -173,7 +173,7 @@ namespace ShaderlabVS
                     int endIndex = pos;
                     if (MoveToEndOfToken(text, ref endIndex))
                     {
-                        length = endIndex - pos;
+                        length = endIndex - pos + 1;
                         if (length > 0 && pos > lastPos)
                             return classTypeDict.TryGetValue(ShaderlabToken.USERDATATYPE, out special);
                     }
