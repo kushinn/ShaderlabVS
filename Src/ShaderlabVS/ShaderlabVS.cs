@@ -156,6 +156,7 @@ namespace ShaderlabVS
 
         private bool IsDataType(string tk)
         {
+            if (tk == "void") return true;
             return ShaderlabDataManager.Instance.HLSLCGDatatypes.Contains(tk);
         }
 
