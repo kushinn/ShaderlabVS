@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="UnityCG..c702cfb7-573c-45f4-9469-115fcb519ad2" Version="0.9" Language="zh-CN" Publisher="Rafe.chen" />
+    <Identity Id="UnityCG..c702cfb7-573c-45f4-9469-115fcb519ad2" Version="0.91" Language="zh-CN" Publisher="Rafe.chen" />
     <DisplayName>UnityCGVS</DisplayName>
     <Description xml:space="preserve">ShaderlabVS is a Visual Studio plugin for Unity3D shader programming.</Description>
     <MoreInfo>https://github.com/kushinn/ShaderlabVS</MoreInfo>

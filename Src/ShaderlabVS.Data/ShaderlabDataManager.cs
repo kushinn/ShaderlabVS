@@ -101,7 +101,23 @@ namespace ShaderlabVS.Data
 
         public List<string> LoadCGIncludesContents()
         {
-            HashSet<string> searchedFiles = new HashSet<string>();
+            List<string> searchedFiles = LoadCGIncludedFiles();
+            List<string> contents = new List<string>();
+            try
+            {
+                foreach (var f in searchedFiles)
+                {
+                    contents.Add(File.ReadAllText(f));
+                }
+            }
+            catch
+            {
+            }
+            return contents;
+        }
+
+        public List<string> LoadCGIncludedFiles()
+        {
             List<string> contents = new List<string>();
             foreach (var entry in UnityCGIncludes)
             {
@@ -111,9 +127,9 @@ namespace ShaderlabVS.Data
                     string[] files = Directory.GetFiles(entry.Description, entry.Format, SearchOption.TopDirectoryOnly);
                     foreach (var f in files)
                     {
-                        if (searchedFiles.Add(f))
+                        if (!contents.Contains(f))
                         {
-                            contents.Add(File.ReadAllText(f));
+                            contents.Add(f);
                         }
                     }
                 }

@@ -30,6 +30,12 @@
 %}
 
 {%
+	%$ Name = {CGINCLUDE} $%
+	%$ Description = {} $%
+	%$ Format = {} $%
+%}
+
+{%
 	%$ Name = {ENDCG} $%
 	%$ Description = {} $%
 	%$ Format = {} $%
