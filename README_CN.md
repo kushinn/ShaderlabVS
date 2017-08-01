@@ -1,9 +1,9 @@
+[English README](https://github.com/kushinn/ShaderlabVS/blob/master/README.md)
+
 ShaderlabVS
 ===========
 
 ShaderlabVS 用于 Unity Shaderlab 编程的 Visual Studio 插件。最新的版本可以从 Release 页面下载。
-
-[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/wudixiaop/ShaderlabVS/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.8&x2=0)](http://blog.shuiguzi.com/2014/10/28/Release/)
 
 ### 支持的文件:
 
