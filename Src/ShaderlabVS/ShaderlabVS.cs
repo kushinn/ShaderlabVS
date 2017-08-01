@@ -107,31 +107,7 @@ namespace ShaderlabVS
 
         private static bool IsTokenSeparator(char c)
         {
-            return c == ' '
-               || c == '\n'
-               || c == '\r'
-               || c == ']'
-               || c == '['
-               || c == '{'
-               || c == '}'
-               || c == '+'
-               || c == '-'
-               || c == '*'
-               || c == '/'
-               || c == '%'
-               || c == '^'
-               || c == '&'
-               || c == '#'
-               || c == '('
-               || c == ')'
-               || c == '!'
-               || c == '~'
-               || c == '?'
-               || c == ':'
-               || c == ','
-               || c == ';'
-               || c == '='
-               || c == '|';
+            return Utilities.IsTokenSeparator(c);
         }
 
         private static bool MoveToEndOfToken(string text, ref int pos)
@@ -158,6 +134,18 @@ namespace ShaderlabVS
         {
             if (tk == "void") return true;
             return ShaderlabDataManager.Instance.HLSLCGDatatypes.Contains(tk);
+        }
+
+        private bool IsInclude(string tk)
+        {
+            return tk.Contains("#include");
+        }
+
+        private bool IsPragma(string tk, string suffix)
+        {
+            if (!tk.Contains("#pragma ")) return false;
+            string newTk = Utilities.RemoveSpace(tk);
+            return tk.Contains("#pragma " + suffix);
         }
 
         private bool IsStruct(string tk, int lastPos, ref int pos, ref int length, string text, out IClassificationType special)
@@ -194,7 +182,7 @@ namespace ShaderlabVS
             return false;
         }
 
-        private bool TryCreateSpecialToken(ShaderlabToken token, ref int pos, ref int length, string text, out IClassificationType special)
+        private bool TryCreateSpecialToken(ITextSnapshot document, ShaderlabToken token, ref int pos, ref int length, string text, out IClassificationType special)
         {
             special = null;
             if (!MoveToNextFrontOfToken(text, ref pos)) return false;
@@ -229,6 +217,27 @@ namespace ShaderlabVS
                         }
                     }
                 }
+            }
+            else if (token == ShaderlabToken.UNITYKEYWORD_PARA)
+            {
+                //string tk = text.Substring(pos, length).Trim();
+                //length = 0;
+                //pos = lastPos;
+
+                //if (IsInclude(tk))
+                //{
+                //    int startIndex = tk.IndexOf("\"");
+                //    if (startIndex < 0) return false;
+                //    int endIndex = tk.IndexOf("\"", startIndex + 1);
+                //    if (endIndex < 0) return false;
+                //    pos = startIndex + 1;
+                //    length = endIndex - pos;
+                //    tk = text.Substring(pos, length);
+                //}
+
+                //else if (IsPragma(tk, "surface"))
+                //{
+                //}
             }
 
             return special != null;
@@ -297,7 +306,7 @@ namespace ShaderlabVS
                     int nexttfPos = pos;
                     int nexttLength = length;
                     IClassificationType nexttf;
-                    if (TryCreateSpecialToken((ShaderlabToken)token, ref nexttfPos, ref nexttLength, text, out nexttf))
+                    if (TryCreateSpecialToken(spans[0].Snapshot, (ShaderlabToken)token, ref nexttfPos, ref nexttLength, text, out nexttf))
                     {
                         yield return new TagSpan<ClassificationTag>(new SnapshotSpan(spans[0].Snapshot, new Span(nexttfPos - 1, nexttLength)),
                                                new ClassificationTag(nexttf));

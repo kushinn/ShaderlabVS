@@ -5,6 +5,19 @@ namespace ShaderlabVS
 {
     internal class Utilities
     {
+        public static readonly char[] sWordSeparators = { '{', '}', ' ', '\t', '(', ')', '[', ']', '+', '-', '*', '/', '%', '^', '>', '<', ':',
+                                '.', ';', '\"', '\'', '?', '\\', '&', '|', '`', '$', '#', ','};
+        private static readonly char[] sSpace = { '\t', ' ' };
+
+        public static bool IsTokenSeparator(char c)
+        {
+            for (var i = 0; i < sWordSeparators.Length; ++i)
+            {
+                if (sWordSeparators[i] == c) return true;
+            }
+            return false;
+        }
+
         public static bool IsCommentLine(string lineText)
         {
             string checkText = lineText.Trim();
@@ -40,6 +53,13 @@ namespace ShaderlabVS
         {
             var lower = filePath.ToLower();
             return lower.EndsWith(".cg") || lower.EndsWith(".hlsl");
+        }
+
+        public static string RemoveSpace(string tk)
+        {
+            if (tk.IndexOfAny(sSpace) < 0) return tk;
+            string[] newTkArray = tk.Split(sSpace, StringSplitOptions.RemoveEmptyEntries);
+            return string.Concat(newTkArray);
         }
     }
 }

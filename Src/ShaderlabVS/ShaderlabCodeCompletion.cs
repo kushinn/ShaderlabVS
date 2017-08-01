@@ -77,10 +77,7 @@ namespace ShaderlabVS
                     continue;
                 }
 
-                string[] words = line.Split(
-                    new char[] { '{', '}', ' ', '\t', '(', ')', '[', ']', '+', '-', '*', '/', '%', '^', '>', '<', ':',
-                                '.', ';', '\"', '\'', '?', '\\', '&', '|', '`', '$', '#', ','},
-                    StringSplitOptions.RemoveEmptyEntries);
+                string[] words = line.Split(Utilities.sWordSeparators, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var word in words)
                 {
@@ -202,7 +199,7 @@ namespace ShaderlabVS
             {
                 if (!keywords.Contains(word))
                 {
-                    completionList.Add(new Completion(word, word, string.Empty, valuesImage, null));
+                    completionList.Add(new Completion(word, word, "In context of this CG file", valuesImage, null));
                 }
             }
 
@@ -210,7 +207,7 @@ namespace ShaderlabVS
             {
                 if (!keywords.Contains(word))
                 {
-                    completionList.Add(new Completion(word, word, string.Empty, valuesImage, null));
+                    completionList.Add(new Completion(word, word, "In context of other CG files", valuesImage, null));
                 }
             }
 

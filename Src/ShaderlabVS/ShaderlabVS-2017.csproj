@@ -126,7 +126,11 @@
     <Compile Include="ShaderlabShortcuts.cs" />
     <Compile Include="ShaderlabSignatureHelp.cs" />
     <Compile Include="ShaderlabToken.cs" />
+    <Compile Include="ShaderlabVSAdvances\ShaderlabVSContext.cs" />
+    <Compile Include="ShaderlabVSAdvances\ShaderlabVSFileReference.cs" />
+    <Compile Include="ShaderlabVSAdvances\UserScanner.cs" />
     <Compile Include="ShaderlabVSFormat.cs" />
+    <Compile Include="ShaderlabVSAdvances\ShaderlabVSMonitor.cs" />
     <Compile Include="ShaderlabVSType.cs" />
     <Compile Include="ShaderlabVS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
