@@ -23,7 +23,8 @@ Features
 等等配置项, 在[CGIncludes.def]中添加/修改预制定义的项，可以使得VS能够自动完成更多的Words。
 但是切记，不要增加太多不常用的Unity版本的目录，否则可能会导致第一次打开文件变慢。
 
-使用ShaderlabVS\Src\ShaderlabVS\Data 下的文件覆盖插件安装目录下的文件，或自行新增关键词、函数等可丰富提升功能。
+### 注意
+![注意]使用ShaderlabVS\Src\ShaderlabVS\Data 下的文件覆盖插件安装目录下的文件，或自行新增关键词、函数等可丰富提升功能。
 
 ### 代码高亮和大纲
 
